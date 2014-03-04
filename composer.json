@@ -8,6 +8,7 @@
     "require": {
         "phpunit/phpunit": "3.7.*",
         "propel/propel": "2.0.*",
-        "slim/slim": "2.*"
+        "slim/slim": "2.*",
+        "squizlabs/php_codesniffer": "2.0.*@dev"
     }
 }

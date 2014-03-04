@@ -4,7 +4,7 @@ APP := $(CURDIR)/app
 LIB := $(CURDIR)/vendor
 VER := php-5.5.9
 MIRROR := us3.php.net
-PATH := $(ENV)/bin:$(PATH)
+PATH := $(ENV)/bin:$(LIB)/bin:$(PATH)
 
 
 all: deps test run
@@ -44,12 +44,15 @@ distclean: clean
 syntax-check:
 	find $(APP) -iname '*.php' -exec php -d error_reporting=32767 -l {} \;
 
-test: syntax-check
+style-check:
+	phpcs --standard=PSR2 $(APP)
+
+test: syntax-check style-check
 	php $(LIB)/bin/phpunit -c $(APP)/protected/tests/phpunit.xml \
 													  $(APP)/protected/tests
 
 run:
-	php -t $(APP) -S 127.0.0.1:8123
+	php -S 127.0.0.1:8123 $(APP)/index.php
 
 
-.PHONY: run test syntax-check distclean clean deps all
+.PHONY: run test style-check syntax-check distclean clean deps all
