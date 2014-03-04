@@ -1,7 +1,7 @@
-spartz-fun
-==========
+spzdmo
+======
 
-This is a code sample.
+This is a sample.
 
 ## Requirements
 

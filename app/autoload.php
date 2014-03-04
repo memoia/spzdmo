@@ -1,5 +1,5 @@
 <?php
-namespace Memoia\SpartzFun;
+namespace Memoia\SpzDmo;
 
 function api_version_loader($ns) {
     try {
@@ -13,4 +13,4 @@ function api_version_loader($ns) {
     include dirname(__FILE__).DIRECTORY_SEPARATOR.strtolower($version).'.php';
 }
 
-spl_autoload_register('\Memoia\SpartzFun\api_version_loader');
+spl_autoload_register('\Memoia\SpzDmo\api_version_loader');

@@ -1,5 +1,5 @@
 <?php
-namespace Memoia\SpartzFun\V1;
+namespace Memoia\SpzDmo\V1;
 
 class Api {
 
