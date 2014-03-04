@@ -8,6 +8,8 @@ class Api {
     }
 
     private function render($data) {
+        $app = \Slim\Slim::getInstance();
+        $app->response->headers->set('Content-Type', 'application/json');
         echo json_encode($data);
     }
 
