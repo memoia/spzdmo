@@ -1,0 +1,13 @@
+{
+    "name": "app",
+    "description": "spartz-fun",
+    "version": "0.0.1",
+    "license": "MIT",
+    "minimum-stability": "dev",
+
+    "require": {
+        "phpunit/phpunit": "3.7.*",
+        "propel/propel": "2.0.*",
+        "slim/slim": "2.*"
+    }
+}
