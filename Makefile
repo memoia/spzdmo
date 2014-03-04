@@ -52,7 +52,7 @@ test: syntax-check style-check
 													  $(APP)/protected/tests
 
 run:
-	php -S 127.0.0.1:8123 $(APP)/index.php
+	php -t $(APP) -S 127.0.0.1:8123 $(APP)/index.php
 
 
 .PHONY: run test style-check syntax-check distclean clean deps all
