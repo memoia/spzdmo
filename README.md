@@ -45,7 +45,9 @@ This is a sample.
 5. Memcache or Redis as a cache layer? No. That's more for a reviewer
    to have to install and run. Along those lines, let's keep the
    database in SQLite. It's built-in, so no configuration on
-   a reviewer's workstation is required.
+   a reviewer's workstation is required. Loading source data into
+   in-memory SQLite on startup would be great, except for the visits
+   requirement, which wouldn't persist, unless it was dumped on term....
 
 ## Get up and running
 
@@ -67,3 +69,10 @@ installation, and you already have composer installed.
 Assuming you do, you can use ``composer update`` to pull
 down all dependencies, ``make test`` to run tests, and
 ``make run`` to run the local server.
+
+## Some thoughts
+
+1. Slim has a funny interaction with the PHP dev server;
+   setting ``SCRIPT_NAME`` to ``null`` is the only way to get
+   it to obey routes that resemble file names. This is probably
+   more on the PHP dev server than it is on Slim.
