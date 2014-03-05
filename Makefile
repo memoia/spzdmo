@@ -52,8 +52,7 @@ style-check:
 	phpcs --standard=PSR2 $(APP)
 
 test: syntax-check style-check
-	php $(LIB)/bin/phpunit -c $(APP)/protected/tests/phpunit.xml \
-													  $(APP)/protected/tests
+	phpunit
 
 run: $(DATA)/store.sqlite3
 	php -t $(APP) -S 127.0.0.1:8123 $(APP)/index.php
