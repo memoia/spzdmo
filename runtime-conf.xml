@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
   <propel>
-    <datasources default="spzdemo">
-      <datasource id="spzdemo">
+    <datasources default="spzdmo">
+      <datasource id="spzdmo">
         <adapter>sqlite</adapter>
         <connection>
           <dsn>sqlite:what.db</dsn>

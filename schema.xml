@@ -13,13 +13,13 @@
     </index>
   </table>
 
-  <table name="users" phpName="User" namespace="Memoia\SpzDemo\Db">
+  <table name="users" phpName="User" namespace="Memoia\SpzDmo\Db">
     <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
     <column name="first_name" type="varchar" required="true" />
     <column name="last_name" type="varchar" required="true" />
   </table>
 
-  <table name="visits" phpName="Visit" namespace="Memoia\SpzDemo\Db">
+  <table name="visits" phpName="Visit" namespace="Memoia\SpzDmo\Db">
     <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
     <column name="modified" type="timestamp" required="true" />
     <column name="users_id" type="integer" required="true" />
