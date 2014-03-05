@@ -1,4 +1,5 @@
 SHELL := /bin/bash
+DATA := $(CURDIR)/data
 ENV := $(CURDIR)/env
 APP := $(CURDIR)/app
 LIB := $(CURDIR)/vendor
@@ -11,6 +12,8 @@ all: deps test run
 
 deps: | $(ENV)/bin/composer
 	composer update
+
+$(DATA)/store.sqlite3: deps
 	phinx migrate
 
 $(ENV):
@@ -52,7 +55,7 @@ test: syntax-check style-check
 	php $(LIB)/bin/phpunit -c $(APP)/protected/tests/phpunit.xml \
 													  $(APP)/protected/tests
 
-run:
+run: $(DATA)/store.sqlite3
 	php -t $(APP) -S 127.0.0.1:8123 $(APP)/index.php
 
 
