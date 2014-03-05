@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="spzdmo" defaultIdMethod="native">
+  <table name="cities" phpName="City" namespace="Memoia\SpzDmo\Db">
+    <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+    <column name="name" type="varchar" required="true" />
+    <column name="state" type="varchar" size="2" required="true" />
+    <column name="status" type="varchar" required="true" />
+    <column name="latitude" type="decimal" required="true" />
+    <column name="longitude" type="decimal" required="true" />
+    <index>
+      <index-column name="latitude">
+      <index-column name="longitude">
+    </index>
+  </table>
+
+  <table name="users" phpName="User" namespace="Memoia\SpzDemo\Db">
+    <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+    <column name="first_name" type="varchar" required="true" />
+    <column name="last_name" type="varchar" required="true" />
+  </table>
+
+  <table name="visits" phpName="Visit" namespace="Memoia\SpzDemo\Db">
+    <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+    <column name="modified" type="timestamp" required="true">
+    <column name="users_id" type="integer" required="true">
+    <column name="cities_id" type="integer" required="true">
+    <foreign-key foreignTable="users" phpName="User">
+      <reference local="users_id" foreign="id" />
+    </foreign-key>
+    <foreign-key foreignTable="cities" phpName="City">
+      <reference local="cities_id" foreign="id" />
+    </foreign-key>
+    <unique>
+      <unique-column name="users_id" />
+      <unique-column name="cities_id" />
+    </unique>
+  </table>
+</database>
