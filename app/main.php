@@ -1,7 +1,7 @@
 <?php
 namespace Memoia\SpzDmo;
 
-require dirname(dirname(__FILE__)).'/vendor/autoload.php';
+require dirname(__DIR__).'/vendor/autoload.php';
 require 'autoload.php';
 
 
