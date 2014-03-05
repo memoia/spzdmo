@@ -11,6 +11,7 @@ all: deps test run
 
 deps: | $(ENV)/bin/composer
 	composer update
+	phinx migrate
 
 $(ENV):
 	mkdir -p $(ENV)/src $(ENV)/share/man/man1 $(ENV)/share/man/man5

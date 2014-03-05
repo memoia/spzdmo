@@ -3,6 +3,7 @@ namespace Memoia\SpzDmo;
 
 require dirname(__DIR__).'/vendor/autoload.php';
 require 'autoload.php';
+spl_autoload_register('\Memoia\SpzDmo\api_version_loader');
 
 
 $app = new \Slim\Slim(array(
