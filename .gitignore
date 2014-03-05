@@ -2,5 +2,3 @@
 env/
 vendor/
 composer.lock
-generated-sql/
-generated-classes/
