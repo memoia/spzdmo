@@ -36,7 +36,7 @@ $(ENV)/bin/composer: | $(ENV)/bin/php
 	ln -s $(ENV)/bin/composer.phar $(ENV)/bin/composer
 
 clean:
-	rm -rf composer.lock vendor/
+	rm -rf composer.lock vendor/ data/store.sqlite3
 
 distclean: clean
 	rm -rf $(ENV)

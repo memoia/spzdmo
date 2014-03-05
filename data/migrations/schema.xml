@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Propel schema used to generate schema.sql ... -->
 <database name="spzdmo" defaultIdMethod="native">
   <table name="cities" phpName="City" namespace="Memoia\SpzDmo\Db">
     <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />

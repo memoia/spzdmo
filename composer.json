@@ -7,7 +7,8 @@
 
     "require": {
         "phpunit/phpunit": "3.7.*",
-        "propel/propel": "2.0.*",
+        "robmorgan/phinx": "0.3.2",
+        "j4mie/idiorm": "dev-develop",
         "slim/slim": "2.*",
         "squizlabs/php_codesniffer": "2.0.*@dev"
     }

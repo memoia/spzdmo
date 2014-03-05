@@ -76,3 +76,6 @@ down all dependencies, ``make test`` to run tests, and
    setting ``SCRIPT_NAME`` to ``null`` is the only way to get
    it to obey routes that resemble file names. This is probably
    more on the PHP dev server than it is on Slim.
+2. Propel really does not make it straightforward to use sqlite.
+   Doctrine's cli won't start despite following directions.
+   Let's try idiorm and phinx.
