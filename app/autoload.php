@@ -11,5 +11,5 @@ function api_version_loader($ns)
     if ($class != 'Api') {
         return;
     }
-    include dirname(__FILE__).DIRECTORY_SEPARATOR.strtolower($version).'.php';
+    include __DIR__.DIRECTORY_SEPARATOR.strtolower($version).'.php';
 }
