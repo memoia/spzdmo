@@ -8,6 +8,15 @@ class Api
         return $this->render("Hello, $name");
     }
 
+    public function cities($state)
+    {
+        return $this->render(
+            \ORM::for_table('cities')
+                ->where('state', $state)
+                ->find_array()
+        );
+    }
+
     private function render($data)
     {
         $app = \Slim\Slim::getInstance();
