@@ -23,8 +23,9 @@ class Api
     public function citiesNear($state, $cityName)
     {
         $radius = \Slim\Slim::getInstance()->request->params('radius');
-        if (! (is_null($radius) || is_numeric($radius))) {
-            throw new Exceptions\ValidationError('Radius querystring param is required and must be a number');
+        $radius = !is_null($radius) ? $radius : 0;
+        if (!is_numeric($radius)) {
+            throw new Exceptions\ValidationError('"radius" must be numeric');
         }
 
         $city = \ORM::for_table('cities')
@@ -40,10 +41,10 @@ class Api
                       ->where_lte('latitude', $bounds['max_lat'])
                       ->where_gte('latitude', $bounds['min_lat'])
                       ->where_lte('longitude', $bounds['max_lon'])
-                      ->where_lte('longitude', $bounds['min_lon'])
+                      ->where_gte('longitude', $bounds['min_lon'])
                       ->find_array();
 
-        $this->render($in_box);     // XXX something is really wrong here
+        $this->render($in_box);
 
         // TODO maybe further filter $in_box result like shown in
         // the reference as sql...
