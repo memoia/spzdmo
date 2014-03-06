@@ -8,12 +8,14 @@ MIRROR := us3.php.net
 PATH := $(ENV)/bin:$(LIB)/bin:$(PATH)
 
 
-all: deps test run
+all: deps database test run
 
 deps: | $(ENV)/bin/composer $(ENV)/activate
 	composer update
 
-$(DATA)/store.sqlite3: deps
+database: $(DATA)/store.sqlite3
+
+$(DATA)/store.sqlite3:
 	phinx migrate
 
 $(ENV):
@@ -57,8 +59,8 @@ style-check:
 test: syntax-check style-check
 	phpunit
 
-run: $(DATA)/store.sqlite3
+run:
 	php -t $(APP) -S 127.0.0.1:8123 $(APP)/index.php
 
 
-.PHONY: run test style-check syntax-check distclean clean deps all
+.PHONY: run test style-check syntax-check distclean clean database deps all
