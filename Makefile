@@ -10,7 +10,7 @@ PATH := $(ENV)/bin:$(LIB)/bin:$(PATH)
 
 all: deps test run
 
-deps: | $(ENV)/bin/composer
+deps: | $(ENV)/bin/composer $(ENV)/activate
 	composer update
 
 $(DATA)/store.sqlite3: deps
@@ -18,6 +18,9 @@ $(DATA)/store.sqlite3: deps
 
 $(ENV):
 	mkdir -p $(ENV)/src $(ENV)/share/man/man1 $(ENV)/share/man/man5
+
+$(ENV)/activate: | $(ENV)
+	echo "export PATH=$(ENV)/bin:$(LIB)/bin:\$$PATH" > $(ENV)/activate
 
 $(ENV)/src/$(VER): | $(ENV)
 	curl -L http://$(MIRROR)/get/$(VER).tar.bz2/from/this/mirror -o - | \
