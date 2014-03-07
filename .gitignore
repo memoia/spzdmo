@@ -2,4 +2,4 @@
 env/
 vendor/
 composer.lock
-data/store.sqlite3
+data/*.sqlite3

@@ -45,7 +45,7 @@ $(ENV)/bin/composer: | $(ENV)/bin/php
 	ln -s $(ENV)/bin/composer.phar $(ENV)/bin/composer
 
 clean:
-	rm -rf composer.lock vendor/ data/store.sqlite3
+	rm -rf composer.lock $(LIB)/ $(DATA)/*.sqlite3
 
 distclean: clean
 	rm -rf $(ENV)
@@ -57,6 +57,7 @@ style-check:
 	phpcs --standard=PSR2 $(APP)
 
 test: syntax-check style-check
+	cp $(DATA)/store.sqlite3 $(DATA)/test.sqlite3
 	phpunit
 
 run:
