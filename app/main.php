@@ -20,7 +20,6 @@ $app->error(function (\Exception $err) use ($app) {
 });
 
 $app->group('/v1', function () use ($app) {
-    $app->get('/hello/:name', '\Memoia\SpzDmo\V1\Api:hello');
     $app->get('/states/:state/cities.json', '\Memoia\SpzDmo\V1\Api:cities');
     $app->get('/states/:state/cities/:cityName.json', '\Memoia\SpzDmo\V1\Api:citiesNear');
 });

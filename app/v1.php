@@ -6,11 +6,6 @@ use Memoia\SpzDmo\Exceptions;
 
 class Api
 {
-    public function hello($name)
-    {
-        return $this->render("Hello, $name");
-    }
-
     public function cities($state)
     {
         return $this->render(
