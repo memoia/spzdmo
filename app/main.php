@@ -5,9 +5,7 @@ require dirname(__DIR__).'/vendor/autoload.php';
 require 'db.php';
 require 'util.php';
 require 'exception.php';
-require 'autoload.php';
-spl_autoload_register('\Memoia\SpzDmo\api_version_loader');
-
+require 'v1.php';
 
 $app = new \Slim\Slim(array(
     'debug' => false,
