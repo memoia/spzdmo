@@ -6,6 +6,9 @@ use Memoia\SpzDmo\Exceptions;
 
 class Api
 {
+    /**
+     * Return all cities matching the named state as an array of assoc arrays.
+     */
     public function cities($state)
     {
         return $this->render(
@@ -15,6 +18,13 @@ class Api
         );
     }
 
+    /**
+     * Return all cities near a given city (named state and city)
+     * within an approximate radius in miles.
+     *
+     * Defaults to zero radius.
+     * Raises ValidationError on faulty input.
+     */
     public function citiesNear($state, $cityName)
     {
         $radius = \Slim\Slim::getInstance()->request->params('radius');
@@ -45,6 +55,18 @@ class Api
         // the reference as sql...
     }
 
+    /**
+     * Inserts or updates a new visit record.
+     *
+     * Given a users table ID and a POST payload
+     * structured as {"city": <city_name>, "state": <state_name>},
+     * updates a visit record with timestamp if user has visited location,
+     * or inserts a new visit record if this is the first visit.
+     *
+     * Returns touched record.
+     * Throws ValidationError if user does not exist or if no cities match
+     * given city/state combination.
+     */
     public function visitCity($userId)
     {
         $data = \Slim\Slim::getInstance()->request->getBody();
@@ -82,6 +104,12 @@ class Api
         return $this->render($visit->as_array());
     }
 
+    /**
+     * Return cities visited by a given user ID.
+     *
+     * Result set includes union of columns from
+     * visits, cities, and users table.
+     */
     public function citiesVisitedBy($userId)
     {
         return $this->render(
@@ -93,6 +121,9 @@ class Api
         );
     }
 
+    /**
+     * Outputs given data structure as JSON.
+     */
     protected function render($data)
     {
         $app = \Slim\Slim::getInstance();
