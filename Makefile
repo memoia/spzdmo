@@ -41,8 +41,8 @@ $(ENV)/bin/php: | $(ENV)/src/$(VER) $(ENV)/lib/php.ini
 
 $(ENV)/bin/composer: | $(ENV)/bin/php
 	curl -s http://getcomposer.org/installer | \
-			php -- --install-dir=$(ENV)/bin
-	ln -s $(ENV)/bin/composer.phar $(ENV)/bin/composer
+	php -- --install-dir=$(ENV)/bin
+	[ ! -f $(ENV)/bin/composer ] && ln -s $(ENV)/bin/composer.phar $(ENV)/bin/composer
 
 clean:
 	rm -rf composer.lock $(LIB)/ $(DATA)/*.sqlite3
