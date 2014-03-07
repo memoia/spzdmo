@@ -13,10 +13,15 @@ download and compile all dependencies, run tests, and start
 a development server on port [8123](http://localhost:8123).
 
 In reality, that probably won't work. I've only tried this
-on OS X 10.9, where both phpenv and php-build were very
-uncooperative. I also felt that creating a self-contained
-vagrant instance with a local puppet installation was a
-little beyond what was wanted from this exercise.
+thoroughly on OS X 10.9 (with XCode/tools), where both phpenv
+and php-build were very uncooperative. I also felt that
+creating a self-contained vagrant instance with a local puppet
+installation was a little beyond what was wanted from this exercise.
+
+However, speaking of vagrant, I did get the project to build
+on an Ubuntu "Precise" box after installing make, curl,
+libxml2-dev, libssl-dev, pkg-config, gcc, etc. It might
+have been better to just go with build-essential.
 
 Maybe you'll be lucky and have an existing PHP &gt;= 5.5
 installation, and you already have composer installed.
