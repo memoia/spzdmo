@@ -45,13 +45,14 @@ class Api
         // the reference as sql...
     }
 
-    public function visitCity($userId) {
+    public function visitCity($userId)
+    {
         $data = \Slim\Slim::getInstance()->request->getBody();
         $rec = json_decode($data, true);
         if (!is_array($rec) || array_diff(array('city', 'state'), array_keys($rec))) {
             throw new Exceptions\ValidationError(
-                  'Request data must be valid JSON and follow structure: '
-                . '{ "city" : CITY, "state" : STATE }'
+                'Request data must be valid JSON and follow structure: '.
+                '{ "city" : CITY, "state" : STATE }'
             );
         }
         $user = \ORM::for_table('users')
@@ -81,7 +82,8 @@ class Api
         return $this->render($visit->as_array());
     }
 
-    public function citiesVisitedBy($userId) {
+    public function citiesVisitedBy($userId)
+    {
         return $this->render(
             \ORM::for_table('visits')
                 ->inner_join('cities', array('visits.cities_id', '=', 'cities.id'))
