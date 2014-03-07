@@ -45,7 +45,18 @@ class Api
         // the reference as sql...
     }
 
-    private function render($data)
+    public function visitCity($userId) {
+        $data = \Slim\Slim::getInstance()->request->getBody();
+        $rec = json_decode($data);
+        return $this->render($rec);
+        //throw new Exceptions\ValidationError('Request data must be valid JSON and follow structure: { "city" : <CITY>, "state" : <STATE> }')
+    }
+
+    public function citiesVisitedBy($userId) {
+        return $this->render($userId);
+    }
+
+    protected function render($data)
     {
         $app = \Slim\Slim::getInstance();
         $app->response->headers->set('Content-Type', 'application/json');

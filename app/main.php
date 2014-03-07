@@ -22,6 +22,8 @@ $app->error(function (\Exception $err) use ($app) {
 $app->group('/v1', function () use ($app) {
     $app->get('/states/:state/cities.json', '\Memoia\SpzDmo\V1\Api:cities');
     $app->get('/states/:state/cities/:cityName.json', '\Memoia\SpzDmo\V1\Api:citiesNear');
+    $app->post('/users/:userId/visits', '\Memoia\SpzDmo\V1\Api:visitCity');
+    $app->get('/users/:userId/visits', '\Memoia\SpzDmo\V1\Api:citiesVisitedBy');
 });
 
 $app->run();
