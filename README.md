@@ -137,6 +137,12 @@ underlying table.
 Also, why can you only submit a single visit record at a time,
 when all other requests return (potentially) multiple records?
 
+When adding a new visit, what happens if the city/state combination
+isn't found in the cities table? Insert a new record into that table
+first and mark it 'unverified', as we don't have coordinates? Or just
+prevent the visit from being inserted? I'll go with the latter since
+that's simpler.
+
 The final wording is also somewhat confusing. "Bad requests", in
 this case, would likely include:
 
