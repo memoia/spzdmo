@@ -73,13 +73,12 @@ Return a list of cities the user has visited:
 3. Use [slim](http://www.slimframework.com) to serve the API
    endpoints, because all the cool kids are raving about it.
 4. Include some [phpunit](http://phpunit.de) units, because units.
-5. Avoid additional caching layers like Memcache or Redis; there's
-   not enough data here and it just further complicates a demo.
-6. Use SQLite as the data-store to avoid any additional
-   required configuration.
+5. Use SQLite as the data-store to avoid any additional
+   required configuration; there's not enough data to warrant
+   a "big" database or a separate caching layer.
 
 
-## Some thoughts
+## More thoughts
 
 1. Slim has a funny interaction with the PHP dev server;
    setting ``SCRIPT_NAME`` to ``null`` is the only way to get
@@ -96,3 +95,77 @@ Return a list of cities the user has visited:
    beyond a bounding box, but in the interest of time, let's keep
    it simple. A good algorithm for a secondary pass is referenced
    in source.
+5. I'm not sure I like the namespacing scheme I chose for the
+   API versions. It's not really in line with common practice.
+   That should probably be fixed/changed some time.
+
+### Interpretations of the spec
+
+The spec is a little unclear about user visits. Do we want
+to keep track of every time a user has visited a location,
+or just that a user has been to a location? I'm interpreting
+it as the latter; maybe we want a column indicating when the
+user was last at a location such that a POST makes more
+sense---i.e., upsert; log when the user was last at a location.
+If it were a new record for every visit, I'd expect a PUT to
+have been used instead.
+
+It is also unclear about the radius option; what happens
+if it's not provided? I'll assume radius is zero if not given.
+
+The style in general is a little odd; why do we want to get
+most things by name, but some things (user visits) by ID?
+What about cities with spaces in their names? A client application
+would have to properly format such whitespace in the request.
+
+Case sensitivity is also a concern. Nothing is mentioned about this,
+so I'll keep it simple and have it do a strict match.
+
+And there's the file-like component to it, too. I wonder why
+we are adding a ".json" extension to the routes, when it's
+simple enough to just include the appropriate content-type
+header in the response. Excluding a pseudo file extension would
+also allow us to sensibly return in different formats from
+the same endpoint, depending on the requested content-type.
+
+Strangely, some routes have the filename extension, and some do not.
+
+The filename extension suggests output format, but not structure.
+This leads me to assume a structure that directly represents the
+underlying table.
+
+Also, why can you only submit a single visit record at a time,
+when all other requests return (potentially) multiple records?
+
+The final wording is also somewhat confusing. "Bad requests", in
+this case, would likely include:
+
+1. Route that does not exist
+2. Malformed and/or malicious URL
+3. Lookups of data that do not exist
+4. Payloads that do not match expected input format
+
+The first should 404, the second, hopefully, would get caught by
+the web framework and 500, the third should also 404---or maybe 500,
+if the lookup contains a value that cannot be bound in PDO properly,
+and the fourth maybe should 400. I'm unsure what other kind of
+"bad request" there is for this application.
+
+Lastly, the large dataset clause is confusing. There isn't a lot
+of data here---approx 10K records, which SQLite is plenty fast
+at reading and joining, especially with indices. I wonder how
+it would handle a bunch of trig functions in the radius query,
+but I wouldn't keep that logic in the database layer anyway, unless
+the database actually provided an optimized function for that
+purpose. For this problem and the selected combination of tools,
+it's probably best to use simple conditionals that can hit
+indices, and filter the result set on a more granular level within
+the application code.
+
+If we were concerned about query performance, we could stick a caching
+layer in front of it, like Memcache or Redis, or even simpler, an in-memory
+SQLite instance. But, if we needed that, we probably would also need
+to move to load-balanced web servers with proxies to PHP-FPM, and a
+bunch of other infrastructural things that are out of scope for this
+exercise. In other words, expected load isn't given, so it's hard to
+know what would be too-little and what would be overkill.
